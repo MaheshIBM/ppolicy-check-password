@@ -9,6 +9,8 @@
 #include <ctype.h>
 #include <portable.h>
 #include <slap.h>
+#include <errno.h>
+#include <string.h>
 
 #ifdef HAVE_CRACKLIB
 #include <crack.h>
@@ -236,7 +238,7 @@ static int read_config_file ()
 
 	if ( (config = fopen(CONFIG_FILE, "r")) == NULL) {
 #if defined(DEBUG)
-		syslog(LOG_ERR, "check_password: Opening file %s failed", CONFIG_FILE);
+		syslog(LOG_ERR, "check_password: Opening file %s failed due to %s", CONFIG_FILE, strerror(errno));
 #endif
 #if defined(LDEBUG)
   printf("check_password: Opening file %s failed\n", CONFIG_FILE);
